@@ -1,4 +1,4 @@
 #PROYECTO PAREJASH
 #PRUEBA.
 #HOLA HOLA
-print("jojo")
+print("jo")
