@@ -3,10 +3,34 @@ class producto:
         self.codigo=codigo
         self.nombre=nombre
         self.categoria=categoria
-        self.precio=precio
-        self.stock=stock
+        self.precio=float(precio)
+        self.stock=int(stock)
         self.valido=True
 
+class OrdenarProducto:
+    def quick_sort(lista,criterio):
+        if len(lista) <= 1:
+            return lista
+
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if getattr(x, criterio) < getattr(pivote,criterio)]
+        iguales = [x for x in lista[1:] if getattr(x,criterio) == getattr(pivote,criterio)]
+        mayores = [x for x in lista[1:] if getattr(x,criterio) > getattr(pivote,criterio)]
+
+        return OrdenarProducto.quick_sort(menores,criterio) + [pivote] + iguales + OrdenarProducto.quick_sort(mayores,criterio)
+
+class Buscador:
+    def buscar(lista,campo,valor):
+        resultados = []
+        valor = valor.lower()
+        for x in lista:
+            if campo == "codigo" and x.codigo == valor:
+                resultados.append(x)
+            elif campo == "nombre" and valor in x.nombre.lower():
+                resultados.append(x)
+            elif campo == "categoria" and valor in x.categoria.lower():
+                resultados.append(x)
+        return resultados
 
 
 class Inventario:
@@ -48,14 +72,36 @@ for codigo, prod in inventario.productos.items():
     print("precio: ",prod.precio)
     print("stock: ",prod.stock)
 '''***********************************************'''
-    def quick_sort(lista):
-        if len(lista) <= 1:
-            return lista
+def menu():
+    inventario = Inventario()
+    while True:
+        print("\n*******MENU PRINCIPAL*******")
+        print("1. Registrar productos")
+        print("2. Lista de productos")
+        print("3. Buscar productos")
+        print("4. Actualizar productos")
+        print("5. Eliminar productos")
+        print("6. Salir")
 
-        pivote = lista[0]
-        menores = [x for x in lista[1:] if x < pivote]
-        iguales = [x for x in lista[1:] if x == pivote]
-        mayores = [x for x in lista[1:] if x > pivote]
-
-        return quick_sort(menores) + iguales + quick_sort(mayores)
-    numeros =
+        opcion = input("Elija una opcion: ")
+        if opcion == "1":
+            codigo = input("Codigo: ")
+            nombre = input("Nombre: ")
+            categoria = input("Categoria: ")
+            precio = float(input("Precio: "))
+            stock = int(input("Stock: "))
+            inventario.agregar_productos(producto(codigo,nombre,categoria,precio,stock))
+        elif opcion == "2":
+            continue
+        elif opcion == "3":
+            continue
+        elif opcion == "4":
+            continue
+        elif opcion == "5":
+            continue
+        elif opcion == "6":
+            print("Hasta pronto!")
+            break
+        else:
+            print("Opcion invalida.")
+menu()
