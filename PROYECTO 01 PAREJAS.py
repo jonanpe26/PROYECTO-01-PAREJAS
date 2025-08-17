@@ -1,40 +1,17 @@
 class producto:
-    def _init_(self, codigo, nombre, categoria, precio, stock):
+    def __init__(self, codigo, nombre, categoria, precio, stock):
         self.codigo=codigo
         self.nombre=nombre
         self.categoria=categoria
         self.precio=float(precio)
         self.stock=int(stock)
         self.valido=True
-
-class OrdenarProducto:
-    def quick_sort(lista,criterio):
-        if len(lista) <= 1:
-            return lista
-
-        pivote = lista[0]
-        menores = [x for x in lista[1:] if getattr(x, criterio) < getattr(pivote,criterio)]
-        iguales = [x for x in lista[1:] if getattr(x,criterio) == getattr(pivote,criterio)]
-        mayores = [x for x in lista[1:] if getattr(x,criterio) > getattr(pivote,criterio)]
-
-        return OrdenarProducto.quick_sort(menores,criterio) + [pivote] + iguales + OrdenarProducto.quick_sort(mayores,criterio)
-
-class Buscador:
-    def buscar(lista,campo,valor):
-        resultados = []
-        valor = valor.lower()
-        for x in lista:
-            if campo == "codigo" and x.codigo == valor:
-                resultados.append(x)
-            elif campo == "nombre" and valor in x.nombre.lower():
-                resultados.append(x)
-            elif campo == "categoria" and valor in x.categoria.lower():
-                resultados.append(x)
-        return resultados
+    def __str__(self):
+        return f"[{self.codigo} {self.nombre}{self.categoria} Q{self.precio:.2f} Stock: {self.stock}]"
 
 
 class Inventario:
-    def _init_(self):
+    def __init__(self):
         self.productos={}
     def agregar_productos(self,producto):
         if producto.codigo == "" or producto.nombre == "" or producto.categoria == "":
@@ -71,10 +48,34 @@ class Inventario:
         else:
             print("Codigo del producto no encontrado")
 
-
 inventario = Inventario()
-
 cantidad=int(input("cuantos productos desea ingresar"))
+
+class OrdenarProducto:
+    def quick_sort(lista,criterio):
+        if len(lista) <= 1:
+            return lista
+
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if getattr(x, criterio) < getattr(pivote,criterio)]
+        iguales = [x for x in lista[1:] if getattr(x,criterio) == getattr(pivote,criterio)]
+        mayores = [x for x in lista[1:] if getattr(x,criterio) > getattr(pivote,criterio)]
+
+        return OrdenarProducto.quick_sort(menores,criterio) + [pivote] + iguales + OrdenarProducto.quick_sort(mayores,criterio)
+
+class Buscador:
+    def buscar(lista,campo,valor):
+        resultados = []
+        valor = valor.lower()
+        for x in lista:
+            if campo == "codigo" and x.codigo == valor:
+                resultados.append(x)
+            elif campo == "nombre" and valor in x.nombre.lower():
+                resultados.append(x)
+            elif campo == "categoria" and valor in x.categoria.lower():
+                resultados.append(x)
+        return resultados
+
 
 for i in range(cantidad):
     print(f"prodcuto {i+1} ")
