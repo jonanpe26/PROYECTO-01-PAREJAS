@@ -7,6 +7,8 @@ class producto:
         self.stock=stock
         self.valido=True
 
+
+
 class Inventario:
     def _init_(self):
         self.productos={}
@@ -45,3 +47,15 @@ for codigo, prod in inventario.productos.items():
     print("categoria: ",prod.categoria)
     print("precio: ",prod.precio)
     print("stock: ",prod.stock)
+'''***********************************************'''
+    def quick_sort(lista):
+        if len(lista) <= 1:
+            return lista
+
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x < pivote]
+        iguales = [x for x in lista[1:] if x == pivote]
+        mayores = [x for x in lista[1:] if x > pivote]
+
+        return quick_sort(menores) + iguales + quick_sort(mayores)
+    numeros =
