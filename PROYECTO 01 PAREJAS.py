@@ -49,6 +49,29 @@ class Inventario:
         self.productos[producto.codigo]=producto
         print("producto agregado correctamente")
 
+    def ListaProductos(self,criterio="nombre"):
+        lista = list(self.productos.values())
+        ListaOrdenada = OrdenarProducto.quick_sort(lista,criterio)
+        for x in ListaOrdenada:
+            print(x)
+
+    def ActualizarProductos(self,codigo,nuevoprecio=None,nuevostock=None):
+         if codigo not in self.productos:
+             print("Productos no encontrados.")
+             return
+         if nuevoprecio is not None:
+            self.productos[codigo].precio = float(nuevoprecio)
+         if nuevostock is not None:
+             self.productos[codigo].stock = int(nuevostock)
+         print("Producto actualizado correctamente.")
+    def EliminarProducto(self,codigo):
+        if codigo in self.productos:
+            del self.productos[codigo]
+            print("Producto eliminado!")
+        else:
+            print("Codigo del producto no encontrado")
+
+
 inventario = Inventario()
 
 cantidad=int(input("cuantos productos desea ingresar"))
@@ -71,7 +94,7 @@ for codigo, prod in inventario.productos.items():
     print("categoria: ",prod.categoria)
     print("precio: ",prod.precio)
     print("stock: ",prod.stock)
-'''***********************************************'''
+
 def menu():
     inventario = Inventario()
     while True:
