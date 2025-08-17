@@ -109,6 +109,7 @@ def menu():
 
         opcion = input("Elija una opcion: ")
         if opcion == "1":
+            print("****AGREGAR PRODUCTOS")
             codigo = input("Codigo: ")
             nombre = input("Nombre: ")
             categoria = input("Categoria: ")
@@ -116,12 +117,19 @@ def menu():
             stock = int(input("Stock: "))
             inventario.agregar_productos(producto(codigo,nombre,categoria,precio,stock))
         elif opcion == "2":
-            continue
+            print("***LISTA DE PRODUCTOS***")
+            ListaProducto = input("Lista por nombre,precio,stock")
+            Inventario.ListaProductos(ListaProducto)
         elif opcion == "3":
+            print("***BUSCAR PRODUCTO***")
             continue
         elif opcion == "4":
+            print("***ACTUALIZAR PRODUCTOS***")
             continue
         elif opcion == "5":
+            print("***ELIMINAR PRODUCTOS***")
+            codigo = input("Ingrese el codigo del producto que desea eliminar: ")
+            Inventario.EliminarProducto(codigo)
             continue
         elif opcion == "6":
             print("Hasta pronto!")
