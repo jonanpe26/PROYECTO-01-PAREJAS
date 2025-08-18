@@ -100,11 +100,11 @@ def menu():
 
         opcion = input("Elija una opcion: ")
         if opcion == "1":
-            print("****AGREGAR PRODUCTOS")
+            print("****AGREGAR PRODUCTOS****")
             cantidad = int(input("cuantos productos desea ingresar: "))
             for i in range(cantidad):
-                print(f"prodcuto {i + 1} ")
-                codigo = input("Codigo: ")
+                print(f"producto #{i + 1} ")
+                codigo = int(input("Codigo: "))
                 nombre = input("Nombre: ")
                 categoria = input("Categoria: ")
                 precio = float(input("Precio: "))
@@ -112,19 +112,25 @@ def menu():
                 inventario.agregar_productos(producto(codigo,nombre,categoria,precio,stock))
         elif opcion == "2":
             print("***LISTA DE PRODUCTOS***")
-            ListaProducto = input("Lista por nombre,precio,stock ")
-            Inventario.ListaProductos(ListaProducto)
+            ListaProducto = input("Como le gustaria ver la lista? por: nombre,precio,stock ")
+            inventario.ListaProductos(ListaProducto)
         elif opcion == "3":
             print("***BUSCAR PRODUCTO***")
-            continue
+            campo = input("Buscar por (Codigo,nombre,categoria: )")
+            valor = input("Ingrese el valor que desea buscar: ")
+            resultado = Buscador.buscar(list(inventario.productos.values()),campo,valor)
+            if resultado:
+                for x in resultado:
+                    print(x)
+            else:
+                print("Datos invalidos")
         elif opcion == "4":
             print("***ACTUALIZAR PRODUCTOS***")
             continue
         elif opcion == "5":
             print("***ELIMINAR PRODUCTOS***")
             codigo = input("Ingrese el codigo del producto que desea eliminar: ")
-            Inventario.EliminarProducto(codigo)
-            continue
+            inventario.EliminarProducto(codigo)
         elif opcion == "6":
             print("Hasta pronto!")
             break
