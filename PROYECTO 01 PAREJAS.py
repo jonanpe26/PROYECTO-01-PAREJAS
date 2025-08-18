@@ -96,8 +96,7 @@ for codigo, prod in inventario.productos.items():
     print("precio: ",prod.precio)
     print("stock: ",prod.stock)
 
-def menu():
-    inventario = Inventario()
+def menu(inventario):
     while True:
         print("\n*******MENU PRINCIPAL*******")
         print("1. Registrar productos")
@@ -118,22 +117,42 @@ def menu():
             inventario.agregar_productos(producto(codigo,nombre,categoria,precio,stock))
         elif opcion == "2":
             print("***LISTA DE PRODUCTOS***")
-            ListaProducto = input("Lista por nombre,precio,stock")
-            Inventario.ListaProductos(ListaProducto)
+            criterio = input("Lista por nombre,precio,stock")
+            inventario.ListaProductos(criterio)
         elif opcion == "3":
             print("***BUSCAR PRODUCTO***")
-            continue
+            campo=input("buscar por codigo")
+            valor=input("ingrese el valor a buscar")
+            lista =list(inventario.productos.values())
+            encontrados = Buscador.buscar(lista, campo, valor)
+            if encontrados:
+                for p in encontrados:
+                    print(p)
+            else:
+                print("no se encontraron productos")
         elif opcion == "4":
             print("***ACTUALIZAR PRODUCTOS***")
-            continue
+            codigo = input("ingrese el codigo a actualizar")
+            nuevo_precio = input("nuevo precio")
+            nuevo_stock = input("nuevo stock")
+            if nuevo_precio != "":
+                precio = float(nuevo_precio)
+            else:
+                precio = None
+
+            if nuevo_stock != "":
+                stock = int(nuevo_stock)
+            else:
+                stock = None
+
+            inventario.ActualizarProductos(codigo, precio, stock)
         elif opcion == "5":
             print("***ELIMINAR PRODUCTOS***")
             codigo = input("Ingrese el codigo del producto que desea eliminar: ")
-            Inventario.EliminarProducto(codigo)
-            continue
+            inventario.EliminarProducto(codigo)
         elif opcion == "6":
             print("Hasta pronto!")
             break
         else:
             print("Opcion invalida.")
-menu()
+menu(inventario)
