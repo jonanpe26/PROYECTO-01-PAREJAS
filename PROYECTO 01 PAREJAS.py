@@ -126,7 +126,11 @@ def menu():
                 print("Datos invalidos")
         elif opcion == "4":
             print("***ACTUALIZAR PRODUCTOS***")
-            continue
+            codigo = input("Ingrese el codigo del producto a actualizar: ")
+            precio = input("Ingrese el nuevo precio: ")
+            stock = input("Ingrese el nuevo stock: ")
+            inventario.ActualizarProductos(codigo,precio)
+
         elif opcion == "5":
             print("***ELIMINAR PRODUCTOS***")
             codigo = input("Ingrese el codigo del producto que desea eliminar: ")
