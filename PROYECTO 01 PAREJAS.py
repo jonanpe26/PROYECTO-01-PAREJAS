@@ -22,7 +22,7 @@ class Inventario:
             return
         if producto.codigo in self.productos:
             print("error, el codigo ya existe")
-
+            return
         self.productos[producto.codigo]=producto
         print("producto agregado correctamente")
 
@@ -49,7 +49,6 @@ class Inventario:
             print("Codigo del producto no encontrado")
 
 inventario = Inventario()
-cantidad=int(input("cuantos productos desea ingresar"))
 
 class OrdenarProducto:
     def quick_sort(lista,criterio):
@@ -68,25 +67,9 @@ class Buscador:
         resultados = []
         valor = valor.lower()
         for x in lista:
-            if campo == "codigo" and x.codigo == valor:
-                resultados.append(x)
-            elif campo == "nombre" and valor in x.nombre.lower():
-                resultados.append(x)
-            elif campo == "categoria" and valor in x.categoria.lower():
+            if x.codigo==codigo:
                 resultados.append(x)
         return resultados
-
-
-for i in range(cantidad):
-    print(f"prodcuto {i+1} ")
-    codigo = input("codigo: ")
-    nombre = input("nombre: ")
-    categoria=input("categoria: ")
-    precio = input("precio: ")
-    stock = int(input("stock"))
-
-    prod=producto(codigo, nombre, categoria, precio,stock)
-    inventario.agregar_productos(prod)
 
 print("productos registrados")
 for codigo, prod in inventario.productos.items():
@@ -94,7 +77,7 @@ for codigo, prod in inventario.productos.items():
     print("nombre: ", prod.nombre)
     print("categoria: ",prod.categoria)
     print("precio: ",prod.precio)
-    print("stock: ",prod.stock)
+    print("stock: ",prod.stock)
 
 def menu(inventario):
     while True:
@@ -109,22 +92,26 @@ def menu(inventario):
         opcion = input("Elija una opcion: ")
         if opcion == "1":
             print("****AGREGAR PRODUCTOS")
-            codigo = input("Codigo: ")
-            nombre = input("Nombre: ")
-            categoria = input("Categoria: ")
-            precio = float(input("Precio: "))
-            stock = int(input("Stock: "))
-            inventario.agregar_productos(producto(codigo,nombre,categoria,precio,stock))
+            cantidad = int(input("cuantos productos desea ingresar"))
+            for i in range (cantidad):
+                codigo = input("Codigo: ")
+                nombre = input("Nombre: ")
+                categoria = input("Categoria: ")
+                precio = float(input("Precio: "))
+                stock = int(input("Stock: "))
+                inventario.agregar_productos(producto(codigo,nombre,categoria,precio,stock))
         elif opcion == "2":
             print("***LISTA DE PRODUCTOS***")
             criterio = input("Lista por nombre,precio,stock")
+            if criterio not in ["nombre","precio","sctock"]:
+                print("criterio invalido, se usara nombre")
+                criterio="nombre"
             inventario.ListaProductos(criterio)
         elif opcion == "3":
             print("***BUSCAR PRODUCTO***")
-            campo=input("buscar por codigo")
-            valor=input("ingrese el valor a buscar")
+            codigo=input("buscar por codigo")
             lista =list(inventario.productos.values())
-            encontrados = Buscador.buscar(lista, campo, valor)
+            encontrados = Buscador.buscar(lista, codigo,)
             if encontrados:
                 for p in encontrados:
                     print(p)
