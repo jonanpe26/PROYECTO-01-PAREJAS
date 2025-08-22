@@ -50,7 +50,6 @@ class Inventario:
 
 inventario = Inventario()
 
-
 class OrdenarProducto:
     def quick_sort(lista,criterio):
         if len(lista) <= 1:
@@ -66,18 +65,10 @@ class OrdenarProducto:
 class Buscador:
     def buscar(lista,campo,valor):
         resultados = []
-        valor = valor.lower()
         for x in lista:
-            if campo == "codigo" and x.codigo == valor:
-                resultados.append(x)
-            elif campo == "nombre" and valor in x.nombre.lower():
-                resultados.append(x)
-            elif campo == "categoria" and valor in x.categoria.lower():
+            if x.codigo == codigo:
                 resultados.append(x)
         return resultados
-
-
-
 
 print("productos registrados")
 for codigo, prod in inventario.productos.items():
@@ -112,25 +103,35 @@ def menu():
                 inventario.agregar_productos(producto(codigo,nombre,categoria,precio,stock))
         elif opcion == "2":
             print("***LISTA DE PRODUCTOS***")
-            ListaProducto = input("Como le gustaria ver la lista? por: nombre,precio,stock ")
-            inventario.ListaProductos(ListaProducto)
+            criterio = input("Lista por nombre,precio,stock")
+            if criterio not in ["nombre", "precio", "stock"]:
+                print("criterio invalido, se usara nombre")
+                criterio = "nombre"
+            inventario.ListaProductos(criterio)
         elif opcion == "3":
             print("***BUSCAR PRODUCTO***")
-            campo = input("Buscar por (Codigo,nombre,categoria: )")
-            valor = input("Ingrese el valor que desea buscar: ")
-            resultado = Buscador.buscar(list(inventario.productos.values()),campo,valor)
-            if resultado:
-                for x in resultado:
+            codigo = input("Buscar por (Codigo,nombre,categoria: )")
+            lista = list(inventario.productos.values())
+            encontrados = Buscador.buscar(lista, codigo)
+            if encontrados:
+                for x in encontrados:
                     print(x)
             else:
                 print("Datos invalidos")
         elif opcion == "4":
             print("***ACTUALIZAR PRODUCTOS***")
-            codigo = input("Ingrese el codigo del producto a actualizar: ")
-            precio = input("Ingrese el nuevo precio: ")
-            stock = input("Ingrese el nuevo stock: ")
-            inventario.ActualizarProductos(codigo,precio)
+            codigo = input("ingrese el codigo a actualizar")
+            nuevo_precio = input("nuevo precio")
+            nuevo_stock = input("nuevo stock")
+            if nuevo_precio != "":
+                precio = float(nuevo_precio)
+            else:
+                precio = None
 
+            if nuevo_stock != "":
+                stock = int(nuevo_stock)
+            else:
+                stock = None
         elif opcion == "5":
             print("***ELIMINAR PRODUCTOS***")
             codigo = input("Ingrese el codigo del producto que desea eliminar: ")
